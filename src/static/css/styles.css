@@ -1,0 +1,146 @@
+.inicioSesion {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../img/fondoInicio.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+.formularioInicioSesion {
+    box-shadow: 0px 0px  10px  0px rgb(0, 0, 0);
+}
+
+#logoNav {
+    width: 60px;
+    height: 60px;
+    margin-right: 25px;
+}
+
+#nav {
+    background-color: #79DFC1 !important;
+}
+
+.imgArticulo {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.card {
+    margin-right: 10px;
+    transition: transform 0.2s;
+    background-color: #E2D9F3;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    background-color: #E0CFFC;
+}
+
+#catalogoCard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.row {
+    margin-top: 100px;
+}
+
+.cantidad {
+    width: 40%;
+    margin-left: 5px;
+}
+
+.bodyTicket {
+    display: flex;
+    justify-content: center;
+}
+
+.containerTicket {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 50px;
+    padding: 30px;
+
+    width: 500px;
+    box-shadow: 0px 0px 5px 0px rgb(0, 0, 0);
+}
+
+.cuerpoTienda{
+    background-color: #F7D6E6;
+}
+
+.imgAdm {
+    width: 100px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.cuerpoCatalogo {
+    background-color: #F7D6E6;
+}
+
+p {
+    text-align: justify;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.cuerpoInfo {
+    background-color: #F7D6E6;
+    height: 100vh;
+    width: 100vw;
+}
+
+hr {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    border-width: 5px;
+}
+.calculator {
+    background-color: #333;
+    border-radius: 8px;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.display {
+    background-color: #444;
+    color: white;
+    font-size: 24px;
+    width: 100%;
+    padding: 10px;
+    text-align: right;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button.buttons {
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #555;
+}
+.contenedor {
+    width: 400px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

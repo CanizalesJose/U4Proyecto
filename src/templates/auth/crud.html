@@ -1,0 +1,48 @@
+{%extends './base.html'%}
+
+{%block titulo%}
+    Administración
+{%endblock%}
+
+{%block atributosBody%}
+    class="cuerpoCatalogo"
+{%endblock%}
+
+{%block cuerpo%}
+    <!-- Barra de Navegación -->
+    <div id="encabezado">
+        <nav class="navbar navbar-expand-md navbar-success bg-success bg-gradient fs-6" id="nav">
+            <div class="container-fluid">
+                <!-- Titulo de la barra -->
+                <img src="../../static/img/logo.png" alt="Flora" class="d-inline-block alighn-text-top" id="logoNav">
+                <a class="navbar-brand mb-0 h1 fs-2" href="{{url_for('tienda')}}">Flora</a>
+                <!-- Cuando se hace pequeña aparece un boton que despliega las opciones -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse ms-5" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-0 mb-lg-0 me-auto">
+
+                        {% if encabezadoTienda %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{url_for('tienda')}}">{{ encabezadoTienda }}</a>
+                            </li>
+                        {% endif %}
+
+                        {% if encabezadoAdministrar %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{url_for('admin')}}">{{ encabezadoAdministrar }}</a>
+                            </li>
+                        {% endif %}
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{url_for('info')}}">Acerca de...</a>
+                        </li>
+                    </ul>
+                </div>
+                <a class="alert alert-danger rounded me-2" href="{{url_for('logout')}}">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </div>
+{%endblock%}

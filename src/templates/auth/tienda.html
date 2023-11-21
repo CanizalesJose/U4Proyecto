@@ -1,0 +1,83 @@
+{% extends './base.html'%}
+{%block titulo%}
+    Tienda
+{%endblock%}
+{%block atributosBody%}
+    class="cuerpoTienda"
+{%endblock%}
+
+{%block cuerpo%}
+
+    <!-- Barra de Navegación -->
+    <div id="encabezado">
+        <nav class="navbar navbar-expand-md navbar-success bg-success bg-gradient fs-6" id="nav">
+            <div class="container-fluid">
+                <!-- Titulo de la barra -->
+                <img src="../../static/img/logo.png" alt="Flora" class="d-inline-block alighn-text-top" id="logoNav">
+                <a class="navbar-brand mb-0 h1 fs-2" href="{{url_for('tienda')}}">Flora</a>
+                <!-- Cuando se hace pequeña aparece un boton que despliega las opciones -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse ms-5" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-0 mb-lg-0 me-auto">
+
+                        {% if encabezadoTienda %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{url_for('tienda')}}">{{ encabezadoTienda }}</a>
+                            </li>
+                        {% endif %}
+
+                        {% if encabezadoAdministrar %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{url_for('admin')}}">{{ encabezadoAdministrar }}</a>
+                            </li>
+                        {% endif %}
+                        
+                        <li class="nav-item me-5">
+                            <a class="nav-link active" aria-current="page" href="{{url_for('info')}}">Acerca de...</a>
+                        </li>
+                    </ul>
+                </div>
+                <a class="alert alert-danger rounded me-2" href="{{url_for('logout')}}">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Cuerpo de la tienda -->
+    <div class="container mt-3 bg-body shadow rounded border border-5">
+        <h1 class="text-center text-dark">FLORA: Catálogo</h1>
+    </div>
+
+    <div class="container mt-3 bg-body shadow rounded border border-5 text-center contenedor">
+        <button class="btn btn-primary" id="btncalculadora">Calculadora</button>
+            <!--CUERPO DE CALCULADORA-->
+            <div class="calculator mx-auto mt-3">
+                <div class="display">
+                </div>
+                <div class="buttons">
+                    <!-- Botones de la calculadora -->
+                    <button>C</button>
+                    <button>/</button>
+                    <button>*</button>
+                    <button>-</button>
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button>
+                    <button class="suma">+</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button class="vacio">0</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button class="igual">=</button>
+                </div>
+            </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='JS/scriptCalculator.js') }}"></script>
+
+{%endblock%}
