@@ -30,3 +30,49 @@ class ModelUsers():
             raise Exception(ex)
         finally:
             cursor.close()
+
+    @classmethod
+    def registrarUsuario(self, db, newUsername, newPassword, newUsertype):
+        try:
+            cursor = db.connection.cursor()
+            cursor.execute("call registrarUsuario(%s, %s, %s);", (newUsername, newPassword, newUsername))
+            cursor.commit()
+        except Exception as ex:
+            db.connection.rollback()
+            raise Exception(ex)
+        finally:
+            cursor.close()
+
+    @classmethod
+    def eliminarUsuario(self, db, currentUsername, currentUserPassword):
+        try:
+            cursor = db.connection.cursor()
+            cursor.execute("call eliminarUsuario(%s, %s);", (currentUsername, currentUserPassword))
+            cursor.commit()
+        except Exception as ex:
+            db.connection.rollback()
+            raise Exception(ex)
+        finally:
+            cursor.close()
+
+    @classmethod
+    def showAllUsers():
+        try:
+            cursor = db.connection.cursor()
+            cursor.execute("select id, username, usertype from users")
+
+            resultados = cursor.fetchall()
+
+            usuarios = []
+            for linea in resultados:
+                linea = {
+                    "id"        :  linea[0],
+                    "username"  :  linea[1],
+                    "usertype"  :  linea[2]
+                }
+                usuarios.append(linea)
+            return usuarios
+        except:
+            raise Exception(ex)
+        finally:
+            cursor.close()

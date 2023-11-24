@@ -33,3 +33,10 @@ CREATE PROCEDURE iniciarSesion(IN pUsername varchar(20), IN pPassword varchar(12
 
     END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE eliminarUsuario(IN currentUsername varchar(20), IN currentPassword varchar(120))
+    BEGIN
+        DELETE FROM users WHERE username=currentUsername COLLATE utf8mb4_unicode_ci AND password=SHA2(currentPassword, 256) COLLATE utf8mb4_unicode_ci;
+    END //
+DELIMITER ;

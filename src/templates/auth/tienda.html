@@ -2,48 +2,16 @@
 {%block titulo%}
     Tienda
 {%endblock%}
+
+{%block cabecera%}
+    <meta name="jsonProductos" content="{{jsonProductos}}">
+{%endblock%}
+
 {%block atributosBody%}
     class="cuerpoTienda"
 {%endblock%}
 
 {%block cuerpo%}
-
-    <!-- Barra de Navegación -->
-    <div id="encabezado">
-        <nav class="navbar navbar-expand-md navbar-success bg-success bg-gradient fs-6" id="nav">
-            <div class="container-fluid">
-                <!-- Titulo de la barra -->
-                <img src="../../static/img/logo.png" alt="Flora" class="d-inline-block alighn-text-top" id="logoNav">
-                <a class="navbar-brand mb-0 h1 fs-2" href="{{url_for('tienda')}}">Flora</a>
-                <!-- Cuando se hace pequeña aparece un boton que despliega las opciones -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse ms-5" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-0 mb-lg-0 me-auto">
-
-                        {% if encabezadoTienda %}
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{url_for('tienda')}}">{{ encabezadoTienda }}</a>
-                            </li>
-                        {% endif %}
-
-                        {% if encabezadoAdministrar %}
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{url_for('admin')}}">{{ encabezadoAdministrar }}</a>
-                            </li>
-                        {% endif %}
-                        
-                        <li class="nav-item me-5">
-                            <a class="nav-link active" aria-current="page" href="{{url_for('info')}}">Acerca de...</a>
-                        </li>
-                    </ul>
-                </div>
-                <a class="alert alert-danger rounded me-2" href="{{url_for('logout')}}">Cerrar Sesión</a>
-            </div>
-        </nav>
-    </div>
 
     <!-- Cuerpo de la tienda -->
     <div class="container mt-3 bg-body shadow rounded border border-5">
@@ -78,6 +46,69 @@
             </div>
     </div>
 
+    <!-- Contenedor del resumen de compras -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12 shadow p-3 rounded border border-5 text-dark bg-body text-center">
+                <h3>Resumen de Compra</h3>
+                <div class="table-responsive">
+                    <table class="table text-dark">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center" id="resumenCompra">
+                            <!-- Cuerpo del resumen de la compra -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td class="text-end">Total:</td>
+                                <td id="total"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <button type="button" class="btn btn-primary" id="finalizarCompra">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor de catálogo -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12 shadow p-3 mb-5 rounded border-5 bg-body" id="catalogoCard">
+                
+                    <!-- Generar de forma dinámica el catálogo de la tienda  -->
+                    {% if productos %}
+                    {% for producto in productos %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card text-dark rounded">
+                            <img src="{{producto.get('productImage')}}" class="card-img-top imgArticulo" alt="Producto {{producto.get('productId')}}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{producto.get('productName')}}</h5>
+                                <p class="card-text">Precio: ${{producto.get('productPrice')}}
+                                <br>
+                                Cantidad: <input type="number" class="cantidad" id="cantidadProducto{{producto.get('productId')}}">
+                                </p>
+                                <br>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary agregar" id="button{{producto.get('productId')}}">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='JS/scriptCalculator.js') }}"></script>
+    <script src="{{ url_for('static', filename='JS/scriptStore.js') }}"></script>
 
 {%endblock%}

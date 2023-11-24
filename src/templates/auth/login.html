@@ -9,32 +9,10 @@
 {%endblock%}
 
 {%block cuerpo%}
-    <!-- Barra de Navegación -->
-    <div id="encabezado">
-        <nav class="navbar navbar-expand-md navbar-success bg-success bg-gradient fs-6" id="nav">
-            <div class="container-fluid">
-                <!-- Titulo de la barra -->
-                <img src="../../static/img/logo.png" alt="Flora" class="d-inline-block alighn-text-top" id="logoNav">
-                <span class="navbar-brand mb-0 h1 fs-2">Flora</span>
-                <!-- Cuando se hace pequeña aparece un boton que despliega las opciones -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse ms-5" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-0 mb-lg-0">
-                        <li class="nav-item me-5">
-                            <a class="nav-link active" aria-current="page" href="{{url_for('info')}}">Acerca de...</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
 
     <form class="formularioInicioSesion position-absolute top-50 start-50 translate-middle p-3 mb-5 border-2 border-black rounded bg-light bg-opacity-75 p-5" action="/login" method="POST">
         <!-- Nombre de usuario -->
-        <div class="form-outline" mb-4>
+        <div class="form-outline mb-4">
             <label class="form-label" for="user">Usuario</label>
             <input type="text" id="user" name="username" class="form-control border-2 border-black" />
         </div>
