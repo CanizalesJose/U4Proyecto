@@ -37,13 +37,14 @@ def admin_required(func):
 # Evitar que surja el error 404 de favicon.ico
 @app.route("/favicon.ico")
 def favicon():
-    return ""
+    return redirect(url_for('login'))
 # -------------------
 # Definir rutas y funciones
 @app.route("/")
 def index():
     return redirect("login")
-# -------------------
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -63,7 +64,8 @@ def login():
             return render_template("auth/login.html")
     else:
         return render_template("auth/login.html")
-# -------------------
+
+
 @app.route("/info")
 def info():
     if current_user.is_authenticated:
@@ -80,7 +82,8 @@ def info():
             return render_template("auth/info.html", encabezadoTienda=encabezadoTienda, encabezadoCerrar=encabezadoCerrar, currentUserName=currentUserName)
 
     return render_template("auth/info.html")
-# -------------------
+
+
 @app.route("/adminProducts")
 def adminProducts():
     if current_user.is_authenticated and current_user.usertype==1:
@@ -93,7 +96,8 @@ def adminProducts():
         return render_template("auth/crud.html", encabezadoTienda=encabezadoTienda, encabezadoAdministrar=encabezadoAdministrar, encabezadoCerrar=encabezadoCerrar, currentUserName=currentUserName, productos=productos)
     else:
         return redirect(url_for('login'))
-# -------------------
+
+
 @app.route("/adminUsers")
 def adminUsers():
     if current_user.is_authenticated and current_user.usertype==1:
@@ -107,7 +111,6 @@ def adminUsers():
         return redirect(url_for('login'))
 
 
-# -------------------
 @app.route("/tienda")
 def tienda():
     if current_user.is_authenticated:
@@ -124,24 +127,61 @@ def tienda():
         return render_template("auth/tienda.html", encabezadoTienda=encabezadoTienda, encabezadoCerrar=encabezadoCerrar, productos=productos, currentUserName=currentUserName, jsonProductos=jsonProductos)
     else:
         return redirect(url_for('login'))
-# -------------------
+
+
 @app.route("/logout")
 def logout():
     if current_user.is_authenticated:
         logout_user()
     return redirect(url_for('login'))
 # -------------------
-# Se crea la ruta que recibe desde JS con el método POST
-# @app.route("/test", methods=["POST"])
-# def test():
-    # output es donde se guardará la variable mandada desde el JS
-    # el método request.get_data() regresa el valor guardado en el atributo data como objeto de ese tipo
-    # output = request.get_data()
-    # print(output)
-    # Se traduce el elemento de string JSON a un objeto python
-    # print(json.loads(output))
-    # Se debe regresar algo, puede ser un mensaje de regreso o un dato
-    # return "Solicitud recibida."
+# Solicitudes desde el JS
+@app.route("/nuevoProducto", methods=["GET", "POST"])
+def nuevoProducto():
+    if (request.method == "POST"):
+        newProduct = request.get_data()
+        newProduct = json.loads(newProduct)
+        
+        try:
+            ModelProducts.registrarProducto(db, newProduct['productId'], newProduct['productName'], newProduct['productPrice'], newProduct['productImage'])
+        except Exception as ex:
+            return json.dumps("Hubo un problema inesperado...")
+        return json.dumps("Producto agregado!")
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route("/eliminarProducto", methods=["GET", "POST"])
+def eliminarProducto():
+    if (request.method == "POST"):
+        eraseRequest = json.loads(request.get_data())
+        try:
+            ModelProducts.eliminarProducto(db, eraseRequest)
+            return json.dumps("Producto eliminado!")
+        except Exception as ex:
+            return json.dumps("Hubo un problema ejecutando el procedimiento...")
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route("/actualizarProducto", methods=["GET", "POST"])
+def actualizarProducto():
+    if (request.method == "POST"):
+        updatedProduct = json.loads(request.get_data())
+        try:
+            ModelProducts.actualizarProducto(db, updatedProduct['productId'], updatedProduct['productName'], updatedProduct['productPrice'], updatedProduct['productImage'])
+            return json.dumps("Producto actualizado!")
+        except Exception as ex:
+            return json.dumps("Hubo un problema ejecutando el procedimiento...")
+    else:
+        return redirect(url_for('login'))
+
+
+# Definir una ruta por defecto que lleve al login
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def defaultRute(path):
+    return redirect(url_for('login'))
 
 # -------------------
 if __name__ == "__main__":

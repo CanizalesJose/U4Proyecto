@@ -43,7 +43,7 @@ class ModelProducts():
             cursor = db.connection.cursor()
             cursor.execute("call eliminarProducto(%s)",(currentProductId))
             db.connection.commit()
-        except Excepiton as ex:
+        except Exception as ex:
             db.connection.rollback()
             raise Exception(ex)
         finally:

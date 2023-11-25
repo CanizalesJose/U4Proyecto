@@ -56,7 +56,7 @@ class ModelUsers():
             cursor.close()
 
     @classmethod
-    def showAllUsers():
+    def showAllUsers(self, db):
         try:
             cursor = db.connection.cursor()
             cursor.execute("select id, username, usertype from users")
@@ -72,7 +72,7 @@ class ModelUsers():
                 }
                 usuarios.append(linea)
             return usuarios
-        except:
+        except Exception as ex:
             raise Exception(ex)
         finally:
             cursor.close()

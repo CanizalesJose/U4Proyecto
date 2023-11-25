@@ -29,3 +29,8 @@ DELIMITER //
         WHERE productId=productCurrentID COLLATE utf8mb4_unicode_ci;
     END //
 DELIMITER ;
+
+call registrarProducto("1", "Gusanitos de gomita", 15, "gusanitos.jpg");
+call registrarProducto("2", "Panditas de gomita", 15, "panditas.jpg");
+call registrarProducto("3", "Dibujos para pintar", 10, "dibujos.jpg");
+call registrarProducto("4", "Lucas", 15, "lucas.jpg");

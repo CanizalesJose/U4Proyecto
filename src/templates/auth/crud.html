@@ -13,35 +13,56 @@
 {%endblock%}
 
 {%block cuerpo%}
-        <div class="col-10 container mt-3 bg-body shadow rounded border border-5">
-            <h1 class="text-center text-dark">FLORA: Administrar Productos</h1>
-        </div>
+    <div class="col-md-10 container mt-3 mb-5 bg-body shadow rounded border">
+        <h1 class="text-center text-dark">FLORA: Administrar Productos</h1>
+    </div>
 
-    <div class="row">
-        <div class="col-sm-8 container shadow p-3 mb-5 rounded border border-5 bg-body">
-            <h2 class="text-center text-dark">Administración</h2>
+    <div class="col-md-5 container shadow p-3 mb-5 rounded border bg-body">
+        <h2 class="text-center text-dark">Administración</h2>
+        <br>
+        <form id="formulario">
+            <div class="form-outline mb-4">
+                <label class="form-label" for="id">ID:</label>
+                <input type="text" id="id" name="id" class="form-control border-1 border-black">
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="name">Nombre:</label>
+                <input type="text" id="name" name="name" class="form-control border-1 border-black">
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="price">Precio:</label>
+                <input type="number" id="price" name="price" class="form-control border-1 border-black">
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="image">Imagen:</label>
+                <input type="text" id="image" name="image" class="form-control border-1 border-black">
+            </div>
             <br>
-            <form id="formulario">
-                <div class="form-outline mb-4">
-                    <label class="form-label" for="id">ID:</label>
-                    <input type="text" id="id" name="id" class="form-control border-1 border-black">
-                </div>
-                <div class="form-outline">
-                    <label class="form-label" for="name">Nombre:</label>
-                    <input type="text" id="name" name="name" class="form-control border-1 border-black">
-                </div>
-                <div class="form-outline">
-                    <label class="form-label" for="price">Precio:</label>
-                    <input type="number" id="price" name="price" class="form-control border-1 border-black">
-                </div>
-                <div class="form-outline">
-                    <label class="form-label" for="image">Imagen:</label>
-                    <input type="text" id="image" name="image" class="form-control border-1 border-black">
-                </div>
-                <br>
-                <button type="button" class="btn btn-success bg-gradient mt-3">Agregar</button>
-                <div class="alert alert-danger mt-3" id="mensajeError"></div>
-            </form>
+            <div class="text-center">
+                <button type="button" class="btn btn-success bg-gradient mt-3" id="botonAgregar">Agregar</button>
+            </div>
+            <div class="alert alert-danger mt-3" id="mensajeError"></div>
+        </form>
+    </div>
+
+    <div class="col-md-8 container shadow p-3 mb-5 ronded border bg-body">
+        <h2 class="text-center text-dark">Artículos</h2>
+        <br>
+        <div class="overflow-scroll">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Img.</th>
+                        <th scope="col">Modificar</th>
+                    </tr>
+                </thead>
+                <tbody id="listaArticulos">
+                    <!-- Lista de artículos registrados -->
+                </tbody>
+            </table>
         </div>
     </div>
 

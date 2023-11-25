@@ -40,3 +40,7 @@ CREATE PROCEDURE eliminarUsuario(IN currentUsername varchar(20), IN currentPassw
         DELETE FROM users WHERE username=currentUsername COLLATE utf8mb4_unicode_ci AND password=SHA2(currentPassword, 256) COLLATE utf8mb4_unicode_ci;
     END //
 DELIMITER ;
+
+call registrarUsuario("admin", "123", 1);
+call registrarUsuario("jose", "123", 0);
+call registrarUsuario("usuario", "123", 0);

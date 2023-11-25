@@ -48,7 +48,7 @@
                     </ul>
                 </div>
                 {% if currentUserName %}
-                    <p class="nav-item">Bienvenido, {{currentUserName}}</p>
+                    <p class="nav-item me-5">Bienvenido, {{currentUserName}}</p>
                 {% endif %}
                 {% if encabezadoCerrar %}
                     <a class="alert alert-danger rounded" href="{{url_for('logout')}}">{{encabezadoCerrar}}</a>
