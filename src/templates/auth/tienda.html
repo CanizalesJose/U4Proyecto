@@ -14,14 +14,14 @@
 {%block cuerpo%}
 
     <!-- Cuerpo de la tienda -->
-    <div class="container mt-3 bg-body shadow rounded border border-5">
+    <div class="container my-5 bg-body shadow rounded border border-5">
         <h1 class="text-center text-dark">FLORA: Catálogo</h1>
     </div>
 
-    <div class="container mt-3 bg-body shadow rounded border border-5 text-center contenedor">
-        <button class="btn btn-primary" id="btncalculadora">Calculadora</button>
+    <div class="container my-5 bg-body shadow rounded border border-5 text-center contenedor">
+        <button class="btn btn-primary my-3 px-5" id="btncalculadora">Calculadora</button>
             <!--CUERPO DE CALCULADORA-->
-            <div class="calculator mx-auto mt-3">
+            <div class="calculator mx-auto my-3">
                 <div class="display">
                 </div>
                 <div class="buttons">
@@ -47,7 +47,7 @@
     </div>
 
     <!-- Contenedor del resumen de compras -->
-    <div class="container">
+    <div class="container my-5">
         <div class="row">
             <div class="col-12 shadow p-3 rounded border border-5 text-dark bg-body text-center">
                 <h3>Resumen de Compra</h3>
@@ -80,29 +80,29 @@
     <!-- Contenedor de catálogo -->
     <div class="container">
         <div class="row">
-            <div class="col-12 shadow p-3 mb-5 rounded border-5 bg-body" id="catalogoCard">
+            <div class="col-12 shadow p-3 mb-5 rounded border border-5 bg-body" id="catalogoCard">
                 
-                    <!-- Generar de forma dinámica el catálogo de la tienda  -->
-                    {% if productos %}
-                    {% for producto in productos %}
-                    <div class="col-md-3 mb-4">
-                        <div class="card text-dark rounded">
-                            <img src="{{producto.get('productImage')}}" class="card-img-top imgArticulo" alt="Producto {{producto.get('productId')}}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{producto.get('productName')}}</h5>
-                                <p class="card-text">Precio: ${{producto.get('productPrice')}}
-                                <br>
-                                Cantidad: <input type="number" class="cantidad" id="cantidadProducto{{producto.get('productId')}}">
-                                </p>
-                                <br>
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-primary agregar" id="button{{producto.get('productId')}}">Agregar al carrito</button>
-                                </div>
+                <!-- Generar de forma dinámica el catálogo de la tienda  -->
+                {% if productos %}
+                {% for producto in productos %}
+                <div class="col-md-3 mb-4">
+                    <div class="card text-dark rounded">
+                        <img src="{{producto.get('productImage')}}" class="card-img-top imgArticulo" alt="Producto {{producto.get('productId')}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{producto.get('productName')}}</h5>
+                            <p class="card-text">Precio: ${{producto.get('productPrice')}}
+                            <br>
+                            Cantidad: <input type="number" class="cantidad" id="cantidadProducto{{producto.get('productId')}}">
+                            </p>
+                            <br>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary agregar" id="button{{producto.get('productId')}}">Agregar al carrito</button>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-                {% endif %}
+                </div>
+                {% endfor %}
+            {% endif %}
                 
             </div>
         </div>

@@ -4,12 +4,79 @@
     Administrar Usuarios
 {%endblock%}
 
+{%block cabecera%}
+    <meta name="usuarios" content="{{usuarios}}">
+{%endblock%}
+
 {%block atributosBody%}
     class="cuerpoInfo"
 {%endblock%}
 
 {%block cuerpo%}
-    <div class="container mt-3 bg-body shadow rounded border border-5">
+    <div class="container mt-3 mb-5 bg-body shadow rounded border border-5">
         <h1 class="text-center text-dark">FLORA: Administrar Usuarios</h1>
     </div>
+
+    <div class="row">
+        <div class="col-md-5 container p-3 mb-5">
+            <div class="row">
+                <div class="col-md-12 container shadow rounded border border-5 bg-body">
+                    <h2 class="text-center text-dark mt-3">Administrar</h2>
+                    <br>
+                    <form id="formUser">
+                        <div class="form-floating mb-4 mx-5">
+                            <input type="text" class="form-control" id="inputNewUsername" placeholder="Username">
+                            <label for="inputNewUsername">Nombre de usuario</label>
+                        </div>
+
+                        <div class="form-floating mb-4 mx-5">
+                            <input type="text" class="form-control" id="inputNewFullname" placeholder="Fullname">
+                            <label for="inputNewFullname">Nombre completo</label>
+                        </div>
+
+                        <div class="form-floating mb-4 mx-5">
+                            <input type="password" class="form-control" id="inputNewPassword" placeholder="Password">
+                            <label for="inputNewPassword">Contraseña</label>
+                        </div>
+
+                        <div class="form-floating mb-4 mx-5">
+                            <select class="form-select" id="inputNewUsertype" aria-label="Floating label select example">
+                                <option value="0">Cliente</option>
+                                <option value="1">Administrador</option>
+                            </select>
+                            <label for="inputNewUsertype">Tipo de Usuario</label>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success bg-gradient my-3" id="botonAgregarUser">Agregar Usuario</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col-md-6 container shadow p-3 mb-5 rounded border border-5 bg-body">
+            <h2 class="text-center text-dark">Usuarios Activos</h2>
+            <br>
+            <div class="overflow-scroll">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Nombre Completo</th>
+                            <th scope="col">Tipo de Usuario</th>
+                            <th scope="col">Modificar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaUsuarios">
+                        <!-- Lista de usuarios registrados -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='JS/scriptAdminUsers.js') }}"></script>
 {%endblock%}

@@ -43,11 +43,10 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
 .row {
-    margin-top: 100px;
+    margin-left: 0;
+    margin-right: 0;
 }
-
 .cantidad {
     width: 40%;
     margin-left: 5px;
@@ -123,9 +122,4 @@ button.buttons {
 }
 button:hover {
     background-color: #555;
-}
-.contenedor {
-    width: 400px;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }

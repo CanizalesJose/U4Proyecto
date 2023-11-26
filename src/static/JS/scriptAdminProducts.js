@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
     const productos = JSON.parse(document.querySelector('meta[name="productos"]').content);
-    console.log(productos);
 
     const mensajeError = document.querySelector("#mensajeError");
     mensajeError.setAttribute("style", "display: none");
@@ -12,10 +11,6 @@ document.addEventListener("DOMContentLoaded", function(){
     llenarTabla();
     agregarProducto();
     
-
-
-
-
     // Funciones
     function llenarTabla(){
         listaProductos = document.querySelector("#listaArticulos");
@@ -42,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function(){
                         <label for="inputNewImage${producto['productId']}">Nuevo Imagen</label>
                     </div>
                 </form>
-            <button type="button" class="btn btn-primary bg-gradient mt-3" id="updateProduct${producto['productId']}">Modificar</button>
-            <button type="button" class="btn btn-danger bg-gradient mt-3" id="deleteProduct${producto['productId']}">Eliminar</button>
+                <button type="button" class="btn btn-primary bg-gradient mt-3" id="updateProduct${producto['productId']}">Modificar</button>
+                <button type="button" class="btn btn-danger bg-gradient mt-3" id="deleteProduct${producto['productId']}">Eliminar</button>
             </td>
             `;
             listaProductos.appendChild(fila);
@@ -155,36 +150,41 @@ document.addEventListener("DOMContentLoaded", function(){
     function actualizarProducto(currentProductId){
         const newProductName = document.querySelector("#inputNewName"+currentProductId).value.trim();
         const newProductPrice = document.querySelector("#inputNewPrice"+currentProductId).value;
-        const newProductImage = document.querySelector("#inputNewImage"+currentProductId).value;
+        const newProductImage = document.querySelector("#inputNewImage"+currentProductId).value.trim();
 
-        const updatedProduct = {
-            productId : currentProductId,
-            productName : newProductName,
-            productPrice : newProductPrice,
-            productImage : newProductImage
-        };
-        $.ajax({
-            // url es la dirección que se ejecutará en app.py
-            url: "/actualizarProducto",
-            // type es el tipo de método que ejecuta, la ruta tendra que tener el método
-            type: "POST",
-            // data es el dato de envío que se recibirá desde Python
-            data: JSON.stringify(updatedProduct),
-            success: function(respuesta){
-                alert(respuesta);
-            },
-            error: function(){
-                alert("Hubo un problema inesperado...");
+        if (newProductName.length > 0 && newProductImage.length > 0 && newProductPrice > 0){
+            const updatedProduct = {
+                productId : currentProductId,
+                productName : newProductName,
+                productPrice : newProductPrice,
+                productImage : newProductImage
+            };
+            $.ajax({
+                // url es la dirección que se ejecutará en app.py
+                url: "/actualizarProducto",
+                // type es el tipo de método que ejecuta, la ruta tendra que tener el método
+                type: "POST",
+                // data es el dato de envío que se recibirá desde Python
+                data: JSON.stringify(updatedProduct),
+                success: function(respuesta){
+                    alert(respuesta);
+                },
+                error: function(){
+                    alert("Hubo un problema inesperado...");
+                }
+            });
+    
+            for (let i = 0; i < productos.length; i++) {
+                if (productos[i]['productId'] == currentProductId){
+                    productos[i]['productName'] = newProductName;
+                    productos[i]['productPrice'] = parseFloat(newProductPrice);
+                    productos[i]['productImage'] = "../../static/img/" + newProductImage;
+                }
             }
-        });
-
-        for (let i = 0; i < productos.length; i++) {
-            if (productos[i]['productId'] == currentProductId){
-                productos[i]['productName'] = newProductName;
-                productos[i]['productPrice'] = parseFloat(newProductPrice);
-                productos[i]['productImage'] = "../../static/img/" + newProductImage;
-            }
-        }
+        }else{
+            alert("Los datos no pueden estar vacíos y el precio no puede ser menor a 0...");
+            return null;
+        }  
     }
 
 });

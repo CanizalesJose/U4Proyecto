@@ -50,7 +50,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('tienda'))
     if request.method == "POST":
-        user = User(0, request.form['username'], request.form['password'], 0)
+        user = User(0, request.form['username'], "", request.form['password'], 0)
         logged_user = ModelUsers.login(db, user)
 
         if logged_user != None:
@@ -69,7 +69,7 @@ def login():
 @app.route("/info")
 def info():
     if current_user.is_authenticated:
-        currentUserName = current_user.username
+        currentUserName = current_user.fullname
         encabezadoCerrar = "Cerrar Sesión"
         if current_user.usertype == 1:
             encabezadoTienda = "Tienda"
@@ -90,7 +90,7 @@ def adminProducts():
         encabezadoTienda = "Tienda"
         encabezadoAdministrar = "Administrar"
         encabezadoCerrar = "Cerrar Sesión"
-        currentUserName = current_user.username
+        currentUserName = current_user.fullname
         productos = json.dumps(ModelProducts.showAllProducts(db))
 
         return render_template("auth/crud.html", encabezadoTienda=encabezadoTienda, encabezadoAdministrar=encabezadoAdministrar, encabezadoCerrar=encabezadoCerrar, currentUserName=currentUserName, productos=productos)
@@ -104,9 +104,10 @@ def adminUsers():
         encabezadoTienda = "Tienda"
         encabezadoAdministrar = "Administrar"
         encabezadoCerrar = "Cerrar Sesión"
-        currentUserName = current_user.username
+        currentUserName = current_user.fullname
+        usuarios = json.dumps(ModelUsers.showAllUsers(db))
 
-        return render_template("auth/crudUsers.html", encabezadoTienda=encabezadoTienda, encabezadoAdministrar=encabezadoAdministrar, encabezadoCerrar=encabezadoCerrar, currentUserName=currentUserName)
+        return render_template("auth/crudUsers.html", encabezadoTienda=encabezadoTienda, encabezadoAdministrar=encabezadoAdministrar, encabezadoCerrar=encabezadoCerrar, currentUserName=currentUserName, usuarios=usuarios)
     else:
         return redirect(url_for('login'))
 
@@ -118,7 +119,7 @@ def tienda():
         productos = productos
         jsonProductos = json.dumps(productos)
         encabezadoCerrar = "Cerrar Sesión"
-        currentUserName = current_user.username
+        currentUserName = current_user.fullname
 
         encabezadoTienda = "Tienda"
         if current_user.usertype == 1:
@@ -177,6 +178,46 @@ def actualizarProducto():
         return redirect(url_for('login'))
 
 
+@app.route("/borrarUsuario", methods=["GET", "POST"])
+def borrarUsuario():
+    if (request.method=="POST"):
+        erasedUser = request.get_data()
+        erasedUser = json.loads(erasedUser)
+        erasedId = erasedUser['id']
+        
+        try:
+            ModelUsers.borrarUsuario(db, erasedId)
+            return json.dumps("Usuario eliminado!")
+        except Exception as ex:
+            raise ex
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route("/agregarUsuario", methods=["GET", "POST"])
+def agregarUsuario():
+    if (request.method=="POST"):
+        newUser = json.loads(request.get_data())
+        try:
+            ModelUsers.registrarUsuario(db,newUser['username'], newUser['fullname'], newUser['password'], newUser['usertype'])
+            return json.dumps("Usuario agregado!")
+        except Exception as ex:
+            raise ex
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route("/actualizarUsuario", methods=["GET", "POST"])
+def actualizarUsuario():
+    if (request.method == "POST"):
+        updatedUser = json.loads(request.get_data())
+        try:
+            ModelUsers.actualizarUsuario(db, updatedUser['id'], updatedUser['username'], updatedUser['fullname'], updatedUser['password'], updatedUser['usertype'])
+            return json.dumps("Usuario actualizado!")
+        except Exception as ex:
+            raise ex
+    else:
+        return redirect(url_for('login'))
 # Definir una ruta por defecto que lleve al login
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
