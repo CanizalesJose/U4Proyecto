@@ -1,3 +1,4 @@
+drop database if exists tiendaflora;
 create database tiendaflora;
 use tiendaflora;
 
