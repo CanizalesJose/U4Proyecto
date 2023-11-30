@@ -64,6 +64,24 @@ document.addEventListener("DOMContentLoaded", function(){
         total.textContent = `$${subtotalTotal}`
     }
 
+    function finalizarcompra(){
+        $.ajax({
+            url:"/ticket",
+            type: "POST",
+            data: JSON.stringify(carrito),
+            error: function(){
+                alert("error");
+            }
+        }).done(function(){
+            window.location.replace("/ticket");
+        });
+
+    }
+
+    document.querySelector("#finalizarCompra").addEventListener("click", function(){
+        finalizarcompra();
+    });
+
     /* 
     // Función para enviar datos al servidor y que los procese
     function testFunction(){

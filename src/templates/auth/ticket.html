@@ -1,0 +1,47 @@
+{% extends './base.html'%}
+{%block titulo%}
+    Ticket
+{%endblock%}
+
+{%block cabecera%}
+    <meta name="carrito" content="{{carrito}}">
+{%endblock%}
+
+{%block atributosBody%}
+    class="cuerpoTienda"
+{%endblock%}
+
+{%block cuerpo%}
+
+    <div class="containerTicket bg-body mx-auto">
+        <h2>Ticket Compra</h2>
+        <h4>¡Flora le agradece por su compra!</h4>
+        <p class="text-end" id="fecha"></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>QTY</th>
+                    <th>ITEM</th>
+                    <th>PRC</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTicket">
+                <!-- Generar ticket -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Totales</td>
+                    <td id="totalProductos"></td>
+                    <td></td>
+                    <td id="totalCompra"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+<p></p>
+
+<script src="{{ url_for('static', filename='JS/scriptTicket.js') }}"></script>
+
+{%endblock%}

@@ -1,5 +1,5 @@
 # Importar librerías
-from flask import Flask, render_template, redirect, request, url_for, flash, get_flashed_messages, abort
+from flask import Flask, render_template, redirect, request, url_for, flash, get_flashed_messages, abort, session
 from flask_mysqldb import MySQL
 from models.ModelUsers import ModelUsers
 from models.entities.users import User
@@ -128,6 +128,19 @@ def tienda():
         return render_template("auth/tienda.html", encabezadoTienda=encabezadoTienda, encabezadoCerrar=encabezadoCerrar, productos=productos, currentUserName=currentUserName, jsonProductos=jsonProductos)
     else:
         return redirect(url_for('login'))
+
+
+@app.route("/ticket", methods=["GET", "POST"])
+def ticket():
+    if request.method == "POST":
+        carrito = request.get_data().decode("utf-8")
+        session["carrito"] = carrito
+        print(carrito)
+        return render_template("auth/ticket.html", carrito=carrito)
+    else:
+        carrito = session.get("carrito", [])
+        print(carrito)
+        return render_template("auth/ticket.html", carrito=carrito)
 
 
 @app.route("/logout")
