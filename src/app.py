@@ -132,15 +132,16 @@ def tienda():
 
 @app.route("/ticket", methods=["GET", "POST"])
 def ticket():
-    if request.method == "POST":
-        carrito = request.get_data().decode("utf-8")
-        session["carrito"] = carrito
-        print(carrito)
-        return render_template("auth/ticket.html", carrito=carrito)
+    if current_user.is_authenticated:
+        if request.method == "POST":
+            carrito = request.get_data().decode("utf-8")
+            session["carrito"] = carrito
+            return render_template("auth/ticket.html", carrito=carrito)
+        else:
+            carrito = session.get("carrito", [])
+            return render_template("auth/ticket.html", carrito=carrito)
     else:
-        carrito = session.get("carrito", [])
-        print(carrito)
-        return render_template("auth/ticket.html", carrito=carrito)
+        return redirect(url_for('login'))
 
 
 @app.route("/logout")

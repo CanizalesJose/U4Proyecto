@@ -150,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 data: JSON.stringify(updatedUser),
                 success: function(respuesta){
                     alert(respuesta);
+                    location.reload();
                 },
                 error: function(){
                     alert("Hubo un problema inesperado...");
