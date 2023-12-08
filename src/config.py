@@ -1,5 +1,5 @@
 class DevelopmentConfig():
-    DEBUG = True
+    DEBUG = False
     CACHE_TYPE = "null"
     SECRET_KEY = "test"
     MYSQL_HOST = "localhost"
